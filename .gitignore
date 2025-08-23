@@ -1,0 +1,77 @@
+# Binaries
+links
+links.exe
+main
+main.exe
+*.exe
+*.out
+
+# Database files
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Build artifacts
+build/
+dist/
+*.upx
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+nohup.out
+
+# Go specific
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Coverage files
+*.cover
+coverage.out
+
+# Compiled Object files
+*.o
+*.a
+*.so
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go mod download cache
+go.sum
+
+# Claude
+.claude
+
+# Misc
+TODO
+
