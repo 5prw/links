@@ -1,163 +1,192 @@
 # Links Manager
 
-Um sistema de gerenciamento de links pessoal moderno e responsivo, desenvolvido com Go e Vue.js 3.
+A modern and responsive personal link management system built with Go and Vue.js 3.
 
-## 🚀 Características
+## 🚀 Features
 
-### Funcionalidades Principais
-- **Gerenciamento de Links**: Adicione, edite e exclua links facilmente
-- **Sistema de Privacidade**: Links públicos e privados com controle granular
-- **Autenticação**: Sistema completo com OAuth Google e autenticação tradicional
-- **Busca e Filtros**: Busca por texto, filtros de privacidade e categorias
-- **Sistema de Favoritos**: Marque links como favoritos para acesso rápido
-- **Categorização**: Organize seus links por categorias customizáveis
-- **Contador de Acesso**: Rastreie quantas vezes cada link foi acessado
-- **Ordenação Customizável**: Ordene por data, alfabética, acessos ou categoria
+### Core Functionality
+- **Link Management**: Easily add, edit, and delete links
+- **Privacy System**: Public and private links with granular control
+- **Authentication**: Complete system with Google OAuth and traditional authentication
+- **Search & Filters**: Text search, privacy filters, and category filtering
+- **Favorites System**: Mark links as favorites for quick access
+- **Categorization**: Organize your links with customizable categories
+- **Access Counter**: Track how many times each link has been accessed
+- **Custom Sorting**: Sort by date, alphabetical, access count, or category
 
-### Interface e Experiência
-- **Layout Responsivo**: Interface otimizada para desktop, tablet e mobile
-- **Dark Mode**: Alternância entre modo claro e escuro com persistência
-- **Internacionalização**: Suporte completo para português e inglês
-- **Design Moderno**: Layout em grid com sidebar para melhor aproveitamento do espaço
-- **Autopreenchimento**: Extração automática de metadados dos links
+### Interface & Experience
+- **Responsive Layout**: Interface optimized for desktop, tablet, and mobile
+- **Dark Mode**: Toggle between light and dark modes with persistence
+- **Internationalization**: Complete support for Portuguese and English
+- **Modern Design**: Grid layout with sidebar for better space utilization
+- **Auto-fill**: Automatic extraction of link metadata
 
-### Tecnologias
-- **Backend**: Go com SQLite embarcado
-- **Frontend**: Vue.js 3 com CSS Grid responsivo
-- **Autenticação**: JWT + OAuth Google
-- **Banco de Dados**: SQLite com migrações automáticas
+### Technology Stack
+- **Backend**: Go with embedded SQLite
+- **Frontend**: Vue.js 3 with responsive CSS Grid
+- **Authentication**: JWT + Google OAuth
+- **Database**: SQLite with automatic migrations
 
-## 🚀 Instalação e Uso
+## 🚀 Installation & Usage
 
-### 1. Executar o Servidor
+### 1. Run the Server
 ```bash
 go run main.go
-# ou especificar porta:
+# or specify port:
 go run main.go -port 3000
 ```
 
-### 2. Acessar a Aplicação
-Navegue para `http://localhost:8080`
+### 2. Access the Application
+Navigate to `http://localhost:8080`
 
-### 3. Criar Conta
-- Cadastre-se com usuário/senha
-- Ou use login com Google (configuração opcional)
+### 3. Create Account
+- Register with username/password
+- Or use Google login (optional configuration)
 
-## ⚙️ Configuração
-
-### OAuth Google (Opcional)
+### 4. Admin Setup (Optional)
 ```bash
-export GOOGLE_CLIENT_ID="seu-client-id"
-export GOOGLE_CLIENT_SECRET="seu-client-secret"
+# Create admin user for moderation
+go run create_admin.go -username admin -password yourpassword
+# Access admin panel at /admin after logging in
+```
+
+## ⚙️ Configuration
+
+### Google OAuth (Optional)
+```bash
+export GOOGLE_CLIENT_ID="your-client-id"
+export GOOGLE_CLIENT_SECRET="your-client-secret"
 export GOOGLE_REDIRECT_URL="http://localhost:8080/api/auth/google/callback"
 ```
 
-### Configurar OAuth no Google
-1. Acesse o [Google Cloud Console](https://console.developers.google.com/)
-2. Crie um projeto e habilite a Google+ API
-3. Crie credenciais OAuth 2.0
-4. Adicione URI de redirecionamento: `http://localhost:8080/api/auth/google/callback`
-5. Configure as variáveis de ambiente acima
+### Setting up Google OAuth
+1. Go to [Google Cloud Console](https://console.developers.google.com/)
+2. Create a project and enable the Google+ API
+3. Create OAuth 2.0 credentials
+4. Add redirect URI: `http://localhost:8080/api/auth/google/callback`
+5. Set the environment variables above
 
-## 📖 Como Usar
+## 📖 How to Use
 
-### Gerenciamento de Links
-1. **Adicionar Link**: Insira URL, use auto-fill para metadados, adicione categoria
-2. **Buscar**: Use a barra de busca para filtrar por URL, descrição ou tags  
-3. **Filtrar**: Filtre por privacidade (público/privado/favoritos) ou categoria
-4. **Ordenar**: Ordene por data, alfabética, mais acessados ou categoria
-5. **Favoritos**: Clique em "Favorite" para marcar links importantes
+### Link Management
+1. **Add Link**: Enter URL, use auto-fill for metadata, add category
+2. **Search**: Use the search bar to filter by URL, description, or tags
+3. **Filter**: Filter by privacy (public/private/favorites) or category
+4. **Sort**: Sort by date, alphabetical, most accessed, or category
+5. **Favorites**: Click "Favorite" to mark important links
 
 ### Interface
-- **Desktop (1024px+)**: Layout em grid com sidebar e área principal
-- **Mobile (<1024px)**: Layout em coluna única otimizado para toque
-- **Dark Mode**: Alterne entre modo claro/escuro no header
+- **Desktop (1024px+)**: Grid layout with sidebar and main area
+- **Mobile (<1024px)**: Single column layout optimized for touch
+- **Dark Mode**: Toggle between light/dark mode in header
+
+### Administration (Admin Users)
+- **User Management**: Promote/demote admin users, delete accounts
+- **Link Moderation**: Delete any link, lock privacy settings, force private
+- **Access Control**: Prevent link owners from changing privacy when locked
 
 ## 🔧 API Endpoints
 
-### Autenticação
-- `POST /api/register` - Criar conta
-- `POST /api/login` - Login usuário/senha  
-- `GET /api/auth/google` - Login Google OAuth2
-- `GET /api/auth/google/callback` - Callback OAuth2
+### Authentication
+- `POST /api/register` - Create account
+- `POST /api/login` - Username/password login
+- `GET /api/auth/google` - Google OAuth2 login
+- `GET /api/auth/google/callback` - OAuth2 callback
 
-### Gerenciamento de Links
-- `GET /api/links` - Obter links do usuário (agrupados por data)
-- `POST /api/links` - Adicionar novo link
-- `DELETE /api/links/:id` - Excluir link
-- `PUT /api/links/:id/favorite` - Alternar favorito
-- `PUT /api/links/:id/access` - Incrementar contador de acesso
+### Link Management
+- `GET /api/links` - Get user's links (grouped by date)
+- `POST /api/links` - Add new link
+- `DELETE /api/links/:id` - Delete link
+- `PUT /api/links/:id/favorite` - Toggle favorite
+- `PUT /api/links/:id/privacy` - Toggle privacy (if not locked)
+- `PUT /api/links/:id/access` - Increment access counter
 
-### Outros
-- `GET /api/metadata?url=<URL>` - Extrair metadados de URL
-- `GET /api/public-links` - Obter links públicos
+### Administration (Admin Only)
+- `GET /api/admin/users` - Get all users
+- `GET /api/admin/links` - Get all links
+- `PUT /api/admin/users/:id/admin` - Toggle admin status
+- `DELETE /api/admin/users/:id/delete` - Delete user
+- `DELETE /api/admin/links/:id/delete` - Delete any link
+- `PUT /api/admin/links/:id/lock` - Lock/unlock link privacy
+- `PUT /api/admin/links/:id/force-private` - Force link private and lock
 
-## 💾 Banco de Dados
+### Other
+- `GET /api/metadata?url=<URL>` - Extract URL metadata
+- `GET /api/public-links` - Get public links
 
-SQLite armazenado em `data/links.db` com tabelas:
-- `users` - Contas de usuário (local + OAuth)  
-- `links` - Links com metadados, privacidade, favoritos, categorias e contador de acesso
+## 💾 Database
 
-## 🛠️ Desenvolvimento
+SQLite stored in `data/links.db` with tables:
+- `users` - User accounts (local + OAuth) with admin status
+- `links` - Links with metadata, privacy, favorites, categories, access counter, and lock status
 
-### Estrutura do Projeto
+## 🛠️ Development
+
+### Project Structure
 ```
 links/
-├── main.go              # Servidor principal e roteamento
+├── main.go              # Main server and routing
+├── create_admin.go      # Admin user creation utility
 ├── internal/
-│   ├── auth/            # Autenticação JWT e OAuth
-│   ├── db/              # Operações de banco de dados
-│   ├── handlers/        # Handlers HTTP para API
-│   ├── middleware/      # Middlewares (CORS, auth)
-│   └── models/          # Modelos de dados
+│   ├── auth/            # JWT and OAuth authentication
+│   ├── db/              # Database operations
+│   ├── handlers/        # HTTP API handlers (auth, links, admin)
+│   ├── middleware/      # Middlewares (CORS, auth, rate limiting)
+│   └── models/          # Data models
 ├── static/
-│   ├── app.js           # Aplicação principal Vue.js
-│   ├── login.js         # Página de login
-│   ├── public.js        # Página de links públicos
-│   ├── main.css         # Estilos CSS consolidados com dark mode
+│   ├── app.js           # Main Vue.js application
+│   ├── login.js         # Login page
+│   ├── public.js        # Public links page
+│   ├── admin.js         # Admin panel
+│   ├── main.css         # Consolidated CSS with dark mode
 │   ├── assets/
-│   │   └── js/          # Módulos JavaScript organizados
-│   └── *.html          # Templates HTML
-└── data/                # Banco SQLite e arquivos
+│   │   └── js/          # Organized JavaScript modules
+│   └── *.html          # HTML templates
+└── data/                # SQLite database and files
 ```
 
-### Dependências
-Dependências mínimas para segurança e performance:
-- `golang.org/x/crypto` - Hash de senhas
-- `golang.org/x/oauth2` - OAuth2 Google
-- `golang.org/x/net/html` - Parsing HTML seguro
-- `modernc.org/sqlite` - Driver SQLite puro Go
+### Dependencies
+Minimal dependencies for security and performance:
+- `golang.org/x/crypto` - Password hashing
+- `golang.org/x/oauth2` - Google OAuth2
+- `golang.org/x/net/html` - Safe HTML parsing
+- `modernc.org/sqlite` - Pure Go SQLite driver
 
-### Build e Deploy
+### Build & Deploy
 ```bash
-# Desenvolvimento
+# Development
 go run main.go
 
-# Build de produção
+# Production build
 go build -o links main.go
 
-# Executar build
+# Run build
 ./links -port 8080
 ```
 
-## 🔒 Recursos de Segurança
+## 🔒 Security Features
 
-- **Validação de Entrada**: Validação e sanitização de URLs
-- **Limites de Requisição**: Timeout, limites de tamanho, proteção redirect
-- **Autenticação**: Todos os endpoints protegidos exceto auth
-- **Parsing Seguro**: HTML parsing sem execução de código
-- **Senhas Seguras**: Hashing bcrypt
-- **CORS**: Configuração adequada para requisições cross-origin
+- **Input Validation**: URL validation and sanitization
+- **Request Limits**: Timeout, size limits, redirect protection
+- **Authentication**: All endpoints protected except auth
+- **Safe Parsing**: HTML parsing without code execution
+- **Secure Passwords**: bcrypt hashing
+- **CORS**: Proper configuration for cross-origin requests
+- **Rate Limiting**: Tiered rate limiting (general, auth, metadata)
+- **SSRF Protection**: Blocks private IP ranges and localhost
+- **Admin Controls**: Role-based access with granular permissions
 
 ## 🎨 Interface
 
-Design focado em funcionalidade:
-- Interface limpa sem ícones desnecessários
-- Foco no conteúdo e usabilidade
-- Design responsivo mobile/desktop
-- Detecção automática de idioma
-- Sugestões automáticas de metadados
+Functionality-focused design:
+- Clean interface without unnecessary icons
+- Focus on content and usability
+- Responsive mobile/desktop design
+- Automatic language detection
+- Automatic metadata suggestions
+- Monospace Iosevka font for better readability
+- Minimal color palette (only blue for links)
 
-## 📝 Licença
+## 📝 License
 
-Projeto open source - sinta-se livre para usar e modificar.
+Open source project - feel free to use and modify.
