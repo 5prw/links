@@ -66,13 +66,14 @@ func (h *OAuthHandler) GoogleCallback(w http.ResponseWriter, r *http.Request) {
 			user = &models.User{
 				ID:        int(userID),
 				Username:  googleUser.Email,
+				IsAdmin:   false,
 				CreatedAt: createdAt,
 			}
 		}
 	}
 
 	// Generate JWT token
-	token, err := auth.GenerateJWT(user.ID, user.Username)
+	token, err := auth.GenerateJWT(user.ID, user.Username, user.IsAdmin)
 	if err != nil {
 		http.Error(w, "Failed to generate token", http.StatusInternalServerError)
 		return

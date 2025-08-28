@@ -1,17 +1,17 @@
-import { createApp } from 'vue';
+import { createApp, reactive } from 'vue';
 
 // Internationalization system
-const i18n = {
+const i18n = reactive({
   // Default language
   currentLang: 'en',
-  
+
   // Translations
   translations: {
     en: {
       // App title
       appTitle: 'Links',
       appSubtitle: 'Personal Link Manager',
-      
+
       // Auth
       welcomeBack: 'Welcome back',
       createAccount: 'Create account',
@@ -23,69 +23,109 @@ const i18n = {
       haveAccount: 'Already have an account? Login',
       logout: 'Logout',
       welcome: 'Welcome',
-      
+
       // Form validation
       usernameRequired: 'Username is required',
       passwordMinLength: 'Password must be at least 3 characters',
       urlRequired: 'URL is required',
       urlFormat: 'URL must start with http:// or https://',
-      
+
       // Error messages
       loginFailed: 'Invalid credentials',
       registrationFailed: 'Username already exists or invalid data',
       sessionExpired: 'Session expired',
       failedToLoadLinks: 'Failed to load links',
       failedToAddLink: 'Failed to add link',
-      
+
       // Success messages
       linkAddedSuccess: 'Link added successfully!',
-      
+
       // Main app
       addNewLink: 'Add new link',
       addLink: 'Add Link',
+      makePrivate: 'Make private',
+      privateLink: 'Private link - only you can see this',
       adding: 'Adding...',
       loading: 'Loading links...',
       noLinksYet: 'No links yet',
       addFirstLink: 'Add your first link above to get started!',
-      
+
       // Form placeholders
       urlPlaceholder: 'https://example.com',
       descriptionPlaceholder: 'Description (optional)',
       tagsPlaceholder: 'Tags (comma separated)',
-      
+      categoryPlaceholder: 'Category (optional)',
+
       // Link display
       linkAdded: 'Link added',
       description: 'Description',
       tags: 'Tags',
-      
+      category: 'Category',
+
       // Time/Date
       today: 'Today',
       yesterday: 'Yesterday',
-      
+
       // Language
       language: 'Language',
       english: 'English',
       portuguese: 'Português',
-      
+
+      // Navigation
+      viewPublicLinks: 'View Public Links',
+
+      // Theme
+      darkMode: 'Dark Mode',
+      lightMode: 'Light Mode',
+      toggleTheme: 'Toggle theme',
+
+      // Search
+      searchLinks: 'Search links...',
+      searchPlaceholder: 'Search by URL, description, or tags',
+      noResults: 'No links found for your search',
+      clearSearch: 'Clear search',
+      filterAll: 'All',
+      filterPublic: 'Public only',
+      filterPrivate: 'Private only',
+      filterFavorites: 'Favorites only',
+
+      // Favorites
+      addFavorite: 'Add to favorites',
+      removeFavorite: 'Remove from favorites',
+      favoriteUpdated: 'Favorite updated successfully!',
+
+      // Sort
+      sortBy: 'Sort by',
+      sortDate: 'Date (newest)',
+      sortDateOld: 'Date (oldest)',
+      sortAlphabetical: 'Alphabetical',
+      sortAccess: 'Most accessed',
+      sortCategory: 'Category',
+
+      // Categories
+      filterByCategory: 'Filter by category',
+      allCategories: 'All categories',
+      uncategorized: 'Uncategorized',
+
       // OAuth
       loginWithGoogle: 'Login with Google',
       orSeparator: 'OR',
-      
+
       // Delete
       deleteLink: 'Delete',
       confirmDelete: 'Are you sure you want to delete this link?',
       linkDeleted: 'Link deleted successfully!',
-      
+
       // Metadata
       autoFill: 'Auto-fill',
       fetchingInfo: 'Fetching info...'
     },
-    
+
     pt: {
       // App title
       appTitle: 'Links',
       appSubtitle: 'Gerenciador Pessoal de Links',
-      
+
       // Auth
       welcomeBack: 'Bem-vindo de volta',
       createAccount: 'Criar conta',
@@ -97,71 +137,111 @@ const i18n = {
       haveAccount: 'Já tem uma conta? Entre',
       logout: 'Sair',
       welcome: 'Bem-vindo',
-      
+
       // Form validation
       usernameRequired: 'Usuário é obrigatório',
       passwordMinLength: 'Senha deve ter pelo menos 3 caracteres',
       urlRequired: 'URL é obrigatória',
       urlFormat: 'URL deve começar com http:// ou https://',
-      
+
       // Error messages
       loginFailed: 'Credenciais inválidas',
       registrationFailed: 'Usuário já existe ou dados inválidos',
       sessionExpired: 'Sessão expirada',
       failedToLoadLinks: 'Falha ao carregar links',
       failedToAddLink: 'Falha ao adicionar link',
-      
+
       // Success messages
       linkAddedSuccess: 'Link adicionado com sucesso!',
-      
+
       // Main app
       addNewLink: 'Adicionar novo link',
       addLink: 'Adicionar Link',
+      makePrivate: 'Tornar privado',
+      privateLink: 'Link privado - apenas você pode ver',
       adding: 'Adicionando...',
       loading: 'Carregando links...',
       noLinksYet: 'Nenhum link ainda',
       addFirstLink: 'Adicione seu primeiro link acima para começar!',
-      
+
       // Form placeholders
       urlPlaceholder: 'https://exemplo.com',
       descriptionPlaceholder: 'Descrição (opcional)',
       tagsPlaceholder: 'Tags (separadas por vírgula)',
-      
+      categoryPlaceholder: 'Categoria (opcional)',
+
       // Link display
       linkAdded: 'Link adicionado',
       description: 'Descrição',
       tags: 'Tags',
-      
+      category: 'Categoria',
+
       // Time/Date
       today: 'Hoje',
       yesterday: 'Ontem',
-      
+
       // Language
       language: 'Idioma',
       english: 'English',
       portuguese: 'Português',
-      
+
+      // Navigation
+      viewPublicLinks: 'Ver Links Públicos',
+
+      // Theme
+      darkMode: 'Modo Escuro',
+      lightMode: 'Modo Claro',
+      toggleTheme: 'Alternar tema',
+
+      // Search
+      searchLinks: 'Buscar links...',
+      searchPlaceholder: 'Buscar por URL, descrição ou tags',
+      noResults: 'Nenhum link encontrado para sua busca',
+      clearSearch: 'Limpar busca',
+      filterAll: 'Todos',
+      filterPublic: 'Apenas públicos',
+      filterPrivate: 'Apenas privados',
+      filterFavorites: 'Apenas favoritos',
+
+      // Favorites
+      addFavorite: 'Adicionar aos favoritos',
+      removeFavorite: 'Remover dos favoritos',
+      favoriteUpdated: 'Favorito atualizado com sucesso!',
+
+      // Sort
+      sortBy: 'Ordenar por',
+      sortDate: 'Data (mais recentes)',
+      sortDateOld: 'Data (mais antigos)',
+      sortAlphabetical: 'Alfabética',
+      sortAccess: 'Mais acessados',
+      sortCategory: 'Categoria',
+
+      // Categories
+      filterByCategory: 'Filtrar por categoria',
+      allCategories: 'Todas as categorias',
+      uncategorized: 'Sem categoria',
+
       // OAuth
       loginWithGoogle: 'Entrar com Google',
       orSeparator: 'OU',
-      
+
       // Delete
       deleteLink: 'Excluir',
       confirmDelete: 'Tem certeza que deseja excluir este link?',
       linkDeleted: 'Link excluído com sucesso!',
-      
+
       // Metadata
       autoFill: 'Preencher automaticamente',
       fetchingInfo: 'Buscando informações...'
     }
   },
-  
+
   // Get translation
   t(key) {
     const translation = this.translations[this.currentLang][key];
     return translation || this.translations['en'][key] || key;
   },
-  
+
   // Detect browser language
   detectLanguage() {
     const browserLang = navigator.language || navigator.userLanguage;
@@ -170,14 +250,14 @@ const i18n = {
     } else {
       this.currentLang = 'en';
     }
-    
+
     // Check localStorage for saved preference
     const savedLang = localStorage.getItem('language');
     if (savedLang && this.translations[savedLang]) {
       this.currentLang = savedLang;
     }
   },
-  
+
   // Set language
   setLanguage(lang) {
     if (this.translations[lang]) {
@@ -185,12 +265,12 @@ const i18n = {
       localStorage.setItem('language', lang);
     }
   },
-  
+
   // Get available languages
   getLanguages() {
     return Object.keys(this.translations);
   }
-};
+});
 
 // Initialize i18n
 i18n.detectLanguage();
@@ -231,13 +311,17 @@ const LinksApp = {
       isAuthenticated: false,
       user: null,
       token: null,
-      showLogin: true,
-      username: '',
-      password: '',
       links: {},
       url: '',
       description: '',
       tags: '',
+      category: '',
+      isPrivate: false,
+      searchQuery: '',
+      privacyFilter: 'all', // 'all', 'public', 'private'
+      categoryFilter: 'all', // 'all' or specific category
+      sortBy: 'date', // 'date', 'date-old', 'alphabetical', 'access', 'category'
+      isDarkMode: false,
       loading: {
         auth: false,
         links: false,
@@ -250,32 +334,122 @@ const LinksApp = {
       },
       success: {
         addLink: false,
-        deleteLink: false
+        deleteLink: false,
+        favoriteToggle: false
       },
-      currentLanguage: i18n.currentLang
+      // Remove currentLanguage from data since we'll use computed property
     }
   },
   created() {
     this.checkAuth();
-    this.handleOAuthCallback();
+    this.initTheme();
   },
   computed: {
+    filteredLinks() {
+      const query = this.searchQuery.toLowerCase().trim();
+
+      // First collect all links and filter them
+      let allLinks = [];
+      Object.keys(this.links).forEach(date => {
+        this.links[date].forEach(link => {
+          // Privacy filter
+          if (this.privacyFilter === 'public' && link.is_private) return;
+          if (this.privacyFilter === 'private' && !link.is_private) return;
+          if (this.privacyFilter === 'favorites' && !link.is_favorite) return;
+
+          // Category filter
+          if (this.categoryFilter !== 'all' && (link.category || 'uncategorized') !== this.categoryFilter) return;
+
+          // Text search filter
+          if (query) {
+            const url = (link.url || '').toLowerCase();
+            const description = (link.description || '').toLowerCase();
+            const tags = (link.tags || '').toLowerCase();
+
+            const matchesSearch = url.includes(query) ||
+                                 description.includes(query) ||
+                                 tags.includes(query);
+
+            if (!matchesSearch) return;
+          }
+
+          allLinks.push(link);
+        });
+      });
+
+      // Sort all links based on sortBy
+      switch (this.sortBy) {
+        case 'date':
+          allLinks.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          break;
+        case 'date-old':
+          allLinks.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+          break;
+        case 'alphabetical':
+          allLinks.sort((a, b) => {
+            const aTitle = a.description || a.url;
+            const bTitle = b.description || b.url;
+            return aTitle.toLowerCase().localeCompare(bTitle.toLowerCase());
+          });
+          break;
+        case 'access':
+          allLinks.sort((a, b) => (b.access_count || 0) - (a.access_count || 0));
+          break;
+        case 'category':
+          allLinks.sort((a, b) => {
+            const aCategory = a.category || 'uncategorized';
+            const bCategory = b.category || 'uncategorized';
+            return aCategory.toLowerCase().localeCompare(bCategory.toLowerCase());
+          });
+          break;
+      }
+
+      // Group sorted links back by date for display
+      const filtered = {};
+      allLinks.forEach(link => {
+        const date = link.created_at.substring(0, 10);
+        if (!filtered[date]) {
+          filtered[date] = [];
+        }
+        filtered[date].push(link);
+      });
+
+      return filtered;
+    },
     byDate() {
-      return Object.keys(this.links).sort().reverse();
+      return Object.keys(this.filteredLinks).sort().reverse();
     },
     hasLinks() {
       return Object.keys(this.links).length > 0;
     },
+    hasFilteredLinks() {
+      return Object.keys(this.filteredLinks).length > 0;
+    },
+    isSearching() {
+      return this.searchQuery.trim().length > 0 || this.privacyFilter !== 'all' || this.categoryFilter !== 'all';
+    },
+    availableCategories() {
+      const categories = new Set();
+      Object.keys(this.links).forEach(date => {
+        this.links[date].forEach(link => {
+          const category = link.category || 'uncategorized';
+          categories.add(category);
+        });
+      });
+      return Array.from(categories).sort();
+    },
     isFormValid() {
-      return this.url.trim() && 
+      return this.url.trim() &&
              (this.url.startsWith('http://') || this.url.startsWith('https://'));
+    },
+    currentLanguage() {
+      return i18n.currentLang;
     }
   },
   methods: {
     // Language methods
     changeLanguage(lang) {
       i18n.setLanguage(lang);
-      this.currentLanguage = lang;
     },
     getAvailableLanguages() {
       return i18n.getLanguages();
@@ -283,99 +457,16 @@ const LinksApp = {
     checkAuth() {
       const token = localStorage.getItem('token');
       const user = localStorage.getItem('user');
-      
+
       if (token && user) {
         this.token = token;
         this.user = JSON.parse(user);
         this.isAuthenticated = true;
         this.getLinks();
       } else {
-        this.isAuthenticated = false;
+        // Redirect to login if not authenticated
+        window.location.href = '/login';
       }
-    },
-    login() {
-      if (!this.validateAuthForm()) return;
-      
-      this.loading.auth = true;
-      this.errors.auth = '';
-      
-      fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: this.username,
-          password: this.password
-        })
-      })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(this.t('loginFailed'));
-        }
-        return res.json();
-      })
-      .then(data => {
-        if (data.token) {
-          this.token = data.token;
-          this.user = data.user;
-          this.isAuthenticated = true;
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          this.username = '';
-          this.password = '';
-          this.getLinks();
-        }
-      })
-      .catch(err => {
-        console.error('Login failed:', err);
-        this.errors.auth = err.message || this.t('loginFailed');
-      })
-      .finally(() => {
-        this.loading.auth = false;
-      });
-    },
-    register() {
-      if (!this.validateAuthForm()) return;
-      
-      this.loading.auth = true;
-      this.errors.auth = '';
-      
-      fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: this.username,
-          password: this.password
-        })
-      })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(this.t('registrationFailed'));
-        }
-        return res.json();
-      })
-      .then(data => {
-        if (data.token) {
-          this.token = data.token;
-          this.user = data.user;
-          this.isAuthenticated = true;
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          this.username = '';
-          this.password = '';
-          this.getLinks();
-        }
-      })
-      .catch(err => {
-        console.error('Registration failed:', err);
-        this.errors.auth = err.message || this.t('registrationFailed');
-      })
-      .finally(() => {
-        this.loading.auth = false;
-      });
     },
     logout() {
       this.isAuthenticated = false;
@@ -384,6 +475,27 @@ const LinksApp = {
       this.links = {};
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      window.location.href = '/';
+    },
+    initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        this.isDarkMode = true;
+        document.body.classList.add('dark-mode');
+      } else {
+        this.isDarkMode = false;
+        document.body.classList.remove('dark-mode');
+      }
+    },
+    toggleTheme() {
+      this.isDarkMode = !this.isDarkMode;
+      if (this.isDarkMode) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+      }
     },
     getAuthHeaders() {
       return {
@@ -394,7 +506,7 @@ const LinksApp = {
     },
     getLinks() {
       this.loading.links = true;
-      
+
       fetch(`/api/links`, {
         headers: this.getAuthHeaders()
       })
@@ -421,17 +533,6 @@ const LinksApp = {
         this.loading.links = false;
       });
     },
-    validateAuthForm() {
-      if (!this.username.trim()) {
-        this.errors.auth = this.t('usernameRequired');
-        return false;
-      }
-      if (this.password.length < 3) {
-        this.errors.auth = this.t('passwordMinLength');
-        return false;
-      }
-      return true;
-    },
     validateLinkForm() {
       if (!this.url.trim()) {
         this.errors.addLink = this.t('urlRequired');
@@ -445,18 +546,30 @@ const LinksApp = {
     },
     add() {
       if (!this.validateLinkForm()) return;
-      
+
       this.loading.addLink = true;
       this.errors.addLink = '';
       this.success.addLink = false;
-      
+
+      // Get current client timestamp
+      const now = new Date();
+      const clientTimestamp = now.getFullYear() + '-' +
+        String(now.getMonth() + 1).padStart(2, '0') + '-' +
+        String(now.getDate()).padStart(2, '0') + ' ' +
+        String(now.getHours()).padStart(2, '0') + ':' +
+        String(now.getMinutes()).padStart(2, '0') + ':' +
+        String(now.getSeconds()).padStart(2, '0');
+
       fetch(`/api/links`, {
         method: 'POST',
         headers: this.getAuthHeaders(),
         body: JSON.stringify({
           url: this.url,
           description: this.description,
-          tags: this.tags
+          tags: this.tags,
+          category: this.category,
+          is_private: this.isPrivate,
+          created_at: clientTimestamp
         })
       })
       .then(res => {
@@ -474,6 +587,8 @@ const LinksApp = {
           this.url = '';
           this.description = '';
           this.tags = '';
+          this.category = '';
+          this.isPrivate = false;
           this.success.addLink = true;
           setTimeout(() => this.success.addLink = false, 3000);
           this.getLinks();
@@ -491,9 +606,9 @@ const LinksApp = {
     },
     fetchMetadata() {
       if (!this.url || !this.isFormValid) return;
-      
+
       this.loading.metadata = true;
-      
+
       fetch(`/api/metadata?url=${encodeURIComponent(this.url)}`, {
         headers: this.getAuthHeaders()
       })
@@ -522,7 +637,7 @@ const LinksApp = {
       if (!confirm(this.t('confirmDelete'))) {
         return;
       }
-      
+
       fetch(`/api/links/${linkId}`, {
         method: 'DELETE',
         headers: this.getAuthHeaders()
@@ -549,212 +664,290 @@ const LinksApp = {
     clearError(type) {
       this.errors[type] = '';
     },
-    // OAuth methods
-    loginWithGoogle() {
-      window.location.href = '/api/auth/google';
+    clearSearch() {
+      this.searchQuery = '';
+      this.privacyFilter = 'all';
+      this.categoryFilter = 'all';
+      this.sortBy = 'date';
     },
-    handleOAuthCallback() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      const userStr = urlParams.get('user');
-      
-      if (token && userStr) {
-        try {
-          const user = JSON.parse(decodeURIComponent(userStr));
-          this.token = token;
-          this.user = user;
-          this.isAuthenticated = true;
-          localStorage.setItem('token', token);
-          localStorage.setItem('user', JSON.stringify(user));
-          
-          // Clean URL
-          window.history.replaceState({}, document.title, '/');
-          
-          this.getLinks();
-        } catch (e) {
-          console.error('Error parsing OAuth callback:', e);
+    incrementAccessCount(linkId) {
+      fetch(`/api/links/${linkId}/access`, {
+        method: 'PUT',
+        headers: this.getAuthHeaders()
+      })
+      .then(res => {
+        if (res.ok) {
+          // Update the access count locally
+          Object.keys(this.links).forEach(date => {
+            this.links[date].forEach(link => {
+              if (link.id === linkId) {
+                link.access_count = (link.access_count || 0) + 1;
+              }
+            });
+          });
         }
-      }
+      })
+      .catch(err => {
+        console.error('Error incrementing access count:', err);
+      });
+    },
+    toggleFavorite(linkId, currentFavoriteStatus) {
+      const newFavoriteStatus = !currentFavoriteStatus;
+
+      fetch(`/api/links/${linkId}/favorite`, {
+        method: 'PUT',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify({
+          is_favorite: newFavoriteStatus
+        })
+      })
+      .then(res => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            this.logout();
+            throw new Error(this.t('sessionExpired'));
+          }
+          throw new Error('Failed to update favorite');
+        }
+
+        // Update the link locally
+        Object.keys(this.links).forEach(date => {
+          this.links[date].forEach(link => {
+            if (link.id === linkId) {
+              link.is_favorite = newFavoriteStatus;
+            }
+          });
+        });
+
+        this.success.favoriteToggle = true;
+        setTimeout(() => this.success.favoriteToggle = false, 3000);
+      })
+      .catch(err => {
+        console.error('Error toggling favorite:', err);
+        if (err.message !== this.t('sessionExpired')) {
+          this.errors.addLink = err.message || 'Failed to toggle favorite';
+        }
+      });
     }
   },
   template: `
-  <div class="app">
-    <!-- Login/Register Form -->
-    <div v-if="!isAuthenticated" class="auth-container">
-      <div class="auth-form">
-        <h1>{{ t('appTitle') }}</h1>
-        <h2>{{ showLogin ? t('welcomeBack') : t('createAccount') }}</h2>
-        
-        <div v-if="errors.auth" class="error-message" @click="clearError('auth')">
-          {{ errors.auth }}
-        </div>
-        
-        <!-- Google OAuth Button -->
-        <button @click="loginWithGoogle()" class="google-btn">
-          {{ t('loginWithGoogle') }}
-        </button>
-        
-        <div class="separator">
-          <span>{{ t('orSeparator') }}</span>
-        </div>
-        
-        <form @submit.prevent="showLogin ? login() : register()">
-          <input 
-            v-model="username" 
-            :placeholder="t('username')" 
-            type="text"
-            :disabled="loading.auth"
-            @input="clearError('auth')"
-            required
-          >
-          <input 
-            v-model="password" 
-            :placeholder="t('password')" 
-            type="password"
-            :disabled="loading.auth"
-            @input="clearError('auth')"
-            required
-          >
-          
-          <button type="submit" :disabled="loading.auth" class="primary-btn">
-            <span v-if="loading.auth">Loading...</span>
-            {{ showLogin ? t('login') : t('register') }}
-          </button>
-        </form>
-        
-        <button @click="showLogin = !showLogin; clearError('auth')" class="link-btn">
-          {{ showLogin ? t('needAccount') : t('haveAccount') }}
-        </button>
-        
-        <!-- Language Switcher -->
-        <div class="language-switcher">
-          <label>{{ t('language') }}:</label>
-          <select v-model="currentLanguage" @change="changeLanguage($event.target.value)">
-            <option value="en">{{ t('english') }}</option>
-            <option value="pt">{{ t('portuguese') }}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
+  <div class="app" :class="{ 'dark-mode': isDarkMode }">
     <!-- Main App -->
-    <div v-if="isAuthenticated" class="main-app">
+    <div class="main-app">
       <!-- Header -->
       <header class="app-header">
         <h1>{{ t('appTitle') }}</h1>
         <div class="user-info">
           <span>{{ t('welcome') }}, {{ user.username }}!</span>
+          <a href="/?view=public" class="public-view-btn">{{ t('viewPublicLinks') }}</a>
           <select v-model="currentLanguage" @change="changeLanguage($event.target.value)" class="lang-select">
             <option value="en">{{ t('english') }}</option>
             <option value="pt">{{ t('portuguese') }}</option>
           </select>
+          <button @click="toggleTheme()" class="theme-btn" :title="t('toggleTheme')">
+            {{ isDarkMode ? t('lightMode') : t('darkMode') }}
+          </button>
           <button @click="logout()" class="logout-btn">{{ t('logout') }}</button>
         </div>
       </header>
-      
-      <!-- Add Link Form -->
-      <div class="add-link-form">
-        <h3>{{ t('addNewLink') }}</h3>
-        
-        <div v-if="errors.addLink" class="error-message" @click="clearError('addLink')">
-          {{ errors.addLink }}
-        </div>
-        
-        <div v-if="success.addLink" class="success-message">
-          {{ t('linkAddedSuccess') }}
-        </div>
-        
-        <div v-if="success.deleteLink" class="success-message">
-          {{ t('linkDeleted') }}
-        </div>
-        
-        <form @submit.prevent="add">
-          <div style="display: flex; gap: 5px; margin-bottom: 10px;">
-            <input 
-              v-model="url" 
-              :placeholder="t('urlPlaceholder')" 
-              type="url"
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+
+        <!-- Add Link Form -->
+        <div class="add-link-form">
+          <h3>{{ t('addNewLink') }}</h3>
+
+          <div v-if="errors.addLink" class="error-message" @click="clearError('addLink')">
+            {{ errors.addLink }}
+          </div>
+
+          <div v-if="success.addLink" class="success-message">
+            {{ t('linkAddedSuccess') }}
+          </div>
+
+          <div v-if="success.deleteLink" class="success-message">
+            {{ t('linkDeleted') }}
+          </div>
+
+          <div v-if="success.favoriteToggle" class="success-message">
+            {{ t('favoriteUpdated') }}
+          </div>
+
+          <form @submit.prevent="add">
+            <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+              <input
+                v-model="url"
+                :placeholder="t('urlPlaceholder')"
+                type="url"
+                :disabled="loading.addLink"
+                @input="clearError('addLink')"
+                style="flex: 1;"
+                required
+              >
+              <button
+                type="button"
+                @click="fetchMetadata()"
+                :disabled="loading.metadata || !isFormValid"
+                class="auto-fill-btn"
+              >
+                {{ loading.metadata ? t('fetchingInfo') : t('autoFill') }}
+              </button>
+            </div>
+            <textarea
+              v-model="description"
+              :placeholder="t('descriptionPlaceholder')"
               :disabled="loading.addLink"
-              @input="clearError('addLink')"
-              style="flex: 1;"
-              required
+              rows="2"
+            ></textarea>
+            <input
+              v-model="tags"
+              :placeholder="t('tagsPlaceholder')"
+              :disabled="loading.addLink"
             >
-            <button 
-              type="button" 
-              @click="fetchMetadata()" 
-              :disabled="loading.metadata || !isFormValid"
-              style="padding: 8px 12px; background: #f0f0f0; border: 1px solid #ccc; cursor: pointer; font-size: 12px;"
+            <input
+              v-model="category"
+              :placeholder="t('categoryPlaceholder')"
+              :disabled="loading.addLink"
             >
-              {{ loading.metadata ? t('fetchingInfo') : t('autoFill') }}
+
+            <div class="privacy-checkbox">
+              <input type="checkbox" v-model="isPrivate" :disabled="loading.addLink">
+              <div>
+                <span>{{ t('makePrivate') }}</span>
+                <small v-if="isPrivate" class="privacy-note">{{ t('privateLink') }}</small>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              :disabled="loading.addLink || !isFormValid"
+              class="primary-btn"
+            >
+              <span v-if="loading.addLink">Loading...</span>
+              {{ loading.addLink ? t('adding') : t('addLink') }}
+            </button>
+          </form>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+          <div class="search-container">
+            <input
+              v-model="searchQuery"
+              :placeholder="t('searchPlaceholder')"
+              class="search-input"
+              type="text"
+            >
+            <button
+              v-if="isSearching"
+              @click="clearSearch()"
+              class="clear-search-btn"
+              :title="t('clearSearch')"
+            >
+              ✕
             </button>
           </div>
-          <textarea 
-            v-model="description" 
-            :placeholder="t('descriptionPlaceholder')"
-            :disabled="loading.addLink"
-            rows="2"
-          ></textarea>
-          <input 
-            v-model="tags" 
-            :placeholder="t('tagsPlaceholder')"
-            :disabled="loading.addLink"
-          >
-          
-          <button 
-            type="submit" 
-            :disabled="loading.addLink || !isFormValid" 
-            class="primary-btn"
-          >
-            <span v-if="loading.addLink">Loading...</span>
-            {{ loading.addLink ? t('adding') : t('addLink') }}
-          </button>
-        </form>
-      </div>
-      
-      <!-- Links Display -->
-      <div class="links-container">
+
+          <div class="filter-container">
+            <label>{{ t('filterAll') }}:</label>
+            <select v-model="privacyFilter" class="privacy-filter">
+              <option value="all">{{ t('filterAll') }}</option>
+              <option value="public">{{ t('filterPublic') }}</option>
+              <option value="private">{{ t('filterPrivate') }}</option>
+              <option value="favorites">{{ t('filterFavorites') }}</option>
+            </select>
+          </div>
+
+          <div class="filter-container">
+            <label>{{ t('filterByCategory') }}:</label>
+            <select v-model="categoryFilter" class="privacy-filter">
+              <option value="all">{{ t('allCategories') }}</option>
+              <option v-for="category in availableCategories" :key="category" :value="category">
+                {{ category === 'uncategorized' ? t('uncategorized') : category }}
+              </option>
+            </select>
+          </div>
+
+          <div class="filter-container">
+            <label>{{ t('sortBy') }}:</label>
+            <select v-model="sortBy" class="privacy-filter">
+              <option value="date">{{ t('sortDate') }}</option>
+              <option value="date-old">{{ t('sortDateOld') }}</option>
+              <option value="alphabetical">{{ t('sortAlphabetical') }}</option>
+              <option value="access">{{ t('sortAccess') }}</option>
+              <option value="category">{{ t('sortCategory') }}</option>
+            </select>
+          </div>
+        </div>
+      </div> <!-- sidebar -->
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <!-- Links Display -->
+        <div class="links-container">
         <div v-if="loading.links" class="loading">
           {{ t('loading') }}
         </div>
-        
+
         <div v-else-if="!hasLinks" class="empty-state">
           <h3>{{ t('noLinksYet') }}</h3>
           <p>{{ t('addFirstLink') }}</p>
         </div>
-        
+
+        <div v-else-if="isSearching && !hasFilteredLinks" class="empty-state">
+          <h3>{{ t('noResults') }}</h3>
+          <button @click="clearSearch()" class="link-btn">{{ t('clearSearch') }}</button>
+        </div>
+
         <div v-else>
           <div v-for="date in byDate" :key="date" class="date-group">
             <h3 class="date-header">{{ toDate(date) }}</h3>
             <div class="links-list">
-              <div v-for="link in links[date]" :key="link.id" class="link-item">
+              <div v-for="link in filteredLinks[date]" :key="link.id" class="link-item">
                 <div class="link-header">
-                  <a :href="link.url" target="_blank" rel="noopener" class="link-url">
+                  <a :href="link.url" target="_blank" rel="noopener" class="link-url" @click="incrementAccessCount(link.id)">
                     {{ link.url }}
                   </a>
                   <div class="link-actions">
-                    <span class="link-time">{{ toTime(link.createdAt) }}</span>
+                    <button
+                      @click="toggleFavorite(link.id, link.is_favorite)"
+                      class="favorite-btn"
+                      :class="{ 'is-favorite': link.is_favorite }"
+                      :title="link.is_favorite ? t('removeFavorite') : t('addFavorite')"
+                    >
+                      {{ link.is_favorite ? 'Fav' : 'Favorite' }}
+                    </button>
+                    <span v-if="link.is_private" class="private-badge">Private</span>
+                    <span v-if="link.access_count > 0" class="access-count">{{ link.access_count }} access{{ link.access_count !== 1 ? 'es' : '' }}</span>
+                    <span class="link-time">{{ toTime(link.created_at) }}</span>
                     <button @click="deleteLink(link.id)" class="delete-btn" :title="t('deleteLink')">
                       Delete
                     </button>
                   </div>
                 </div>
-                
+
                 <div v-if="link.description" class="link-description">
                   {{ link.description }}
                 </div>
-                
+
                 <div v-if="link.tags" class="link-tags">
                   <span v-for="tag in link.tags.split(',')" :key="tag" class="tag">
                     #{{ tag.trim() }}
                   </span>
                 </div>
+
+                <div v-if="link.category" class="link-category">
+                  <span class="category-badge">{{ link.category }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+
+      </div> <!-- content-area  -->
+    </div> <!-- main-app  -->
+  </div> <!-- app -->
   `
 };
 

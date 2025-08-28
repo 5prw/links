@@ -33,10 +33,9 @@ func (h *MetadataHandler) ExtractMetadata(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	// Validate URL
-	parsedURL, err := url.Parse(targetURL)
-	if err != nil || (parsedURL.Scheme != "http" && parsedURL.Scheme != "https") {
-		http.Error(w, "Invalid URL", http.StatusBadRequest)
+	// Validate and sanitize URL
+	if !h.isValidURL(targetURL) {
+		http.Error(w, "Invalid or prohibited URL", http.StatusBadRequest)
 		return
 	}
 
@@ -44,6 +43,68 @@ func (h *MetadataHandler) ExtractMetadata(w http.ResponseWriter, r *http.Request
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(metadata)
+}
+
+func (h *MetadataHandler) isValidURL(targetURL string) bool {
+	// Parse URL
+	parsedURL, err := url.Parse(targetURL)
+	if err != nil {
+		return false
+	}
+
+	// Only allow HTTP and HTTPS
+	if parsedURL.Scheme != "http" && parsedURL.Scheme != "https" {
+		return false
+	}
+
+	// Block private/local IP ranges to prevent SSRF
+	hostname := strings.ToLower(parsedURL.Hostname())
+	
+	// Block localhost variations
+	if hostname == "localhost" || hostname == "127.0.0.1" || hostname == "::1" {
+		return false
+	}
+
+	// Block private IPv4 ranges
+	privateIPv4Patterns := []string{
+		"192.168.", // Private Class C
+		"10.",      // Private Class A
+		"172.16.", "172.17.", "172.18.", "172.19.", "172.20.", // Private Class B
+		"172.21.", "172.22.", "172.23.", "172.24.", "172.25.",
+		"172.26.", "172.27.", "172.28.", "172.29.", "172.30.", "172.31.",
+		"169.254.", // Link-local
+		"0.0.0.0",  // This network
+	}
+
+	for _, pattern := range privateIPv4Patterns {
+		if strings.HasPrefix(hostname, pattern) {
+			return false
+		}
+	}
+
+	// Block private IPv6 ranges
+	if strings.HasPrefix(hostname, "fe80:") || strings.HasPrefix(hostname, "fc00:") || strings.HasPrefix(hostname, "fd00:") {
+		return false
+	}
+
+	// Block common internal hostnames
+	internalHosts := []string{
+		"internal", "intranet", "admin", "management", 
+		"staging", "dev", "test", "debug",
+	}
+
+	for _, internal := range internalHosts {
+		if strings.Contains(hostname, internal) {
+			return false
+		}
+	}
+
+	// Additional length and format checks
+	if len(targetURL) > 2048 {
+		return false
+	}
+
+	return true
 }
 
 func (h *MetadataHandler) fetchURLMetadata(targetURL string) URLMetadata {

@@ -1,11 +1,13 @@
 package middleware
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 	"strings"
 
 	"links/internal/auth"
+	"links/internal/models"
 )
 
 func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
@@ -30,7 +32,23 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 		r.Header.Set("X-User-ID", strconv.Itoa(claims.UserID))
 		r.Header.Set("X-Username", claims.Username)
+		r.Header.Set("X-Is-Admin", strconv.FormatBool(claims.IsAdmin))
 
-		next(w, r)
+		// Add user to context for handlers
+		user := &models.User{
+			ID:       claims.UserID,
+			Username: claims.Username,
+			IsAdmin:  claims.IsAdmin,
+		}
+		ctx := context.WithValue(r.Context(), "user", user)
+		next(w, r.WithContext(ctx))
 	}
+}
+
+func GetUserFromContext(ctx context.Context) *models.User {
+	user, ok := ctx.Value("user").(*models.User)
+	if !ok {
+		return nil
+	}
+	return user
 }

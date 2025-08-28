@@ -16,7 +16,7 @@ import (
 
 var jwtSecret = []byte("your-secret-key-change-in-production")
 
-func GenerateJWT(userID int, username string) (string, error) {
+func GenerateJWT(userID int, username string, isAdmin bool) (string, error) {
 	header := map[string]interface{}{
 		"alg": "HS256",
 		"typ": "JWT",
@@ -25,6 +25,7 @@ func GenerateJWT(userID int, username string) (string, error) {
 	claims := models.JWTClaims{
 		UserID:   userID,
 		Username: username,
+		IsAdmin:  isAdmin,
 		Exp:      time.Now().Add(24 * time.Hour).Unix(),
 	}
 

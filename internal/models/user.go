@@ -4,6 +4,7 @@ type User struct {
 	ID        int    `json:"id"`
 	Username  string `json:"username"`
 	Password  string `json:"-"` // Never expose password in JSON
+	IsAdmin   bool   `json:"isAdmin"`
 	CreatedAt string `json:"createdAt"`
 }
 
@@ -20,5 +21,6 @@ type AuthResponse struct {
 type JWTClaims struct {
 	UserID   int    `json:"user_id"`
 	Username string `json:"username"`
+	IsAdmin  bool   `json:"is_admin"`
 	Exp      int64  `json:"exp"`
 }
